@@ -35,41 +35,33 @@ const test = () =>{
 
 
 //Build a function mergeSort that takes in an array and returns a sorted array, using a recursive merge sort methodology.
-let unsorted = [4,2,6,8]
-const sort = () => {
-    let sorted = [];
-    /*
-    if n elements < 2
-        return
-    else
-        split left half of array
-        split right half of array
-        sort and merge halves
-    */
-    const mergeSort = (x) =>{
-        if(x.length < 2){
-            return
-        } else{
-            leftSort(x)
-            rightSort(x)
-            merge()
-        }
-    }
-}
+let unsorted = [4,2,6,8,124,6,1,3,0,8,5, 123,9867]
+console.log(unsorted.sort((a,b)=>{return a - b}))
+const mergeSort = (arr) =>{
+    // mid point of the array
+    const half = arr.length/2;
+    //base case, terminates the call
+    if(arr.length < 2){
+        return arr;
+    };
+    //left side of the array
+    const left = arr.splice(0,half);
+    return merge(mergeSort(left), mergeSort(arr));
 
-let a = [1]
-let b = [3]
-function testMerge(x,y){
-    let temp = []
-    let z = 0;
-    if(x.length >= y.length){
-        z = x.length
-    }else {
-        z = y.length
-    }
-    for(let i = 0; i <= z; i++){
-        return "hi"
-    }
-    
-}
-console.log(testMerge(a,b))
+
+    function merge(left,right){
+        let temp = [];
+        // stop until either left or right are empty
+        while(left.length && right.length){
+            if(left[0] < right[0]){
+                temp.push(left.shift());
+            } else {
+                temp.push(right.shift());
+            };
+        };
+        //concat all the left over pieces in the array
+        return [...temp, ...left, ...right];
+    };
+};
+
+console.log(mergeSort(unsorted));
